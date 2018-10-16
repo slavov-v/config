@@ -89,7 +89,7 @@ SPACESHIP_KUBECONTEXT_SHOW="false"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
+    git
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -126,21 +126,31 @@ source $ZSH/oh-my-zsh.sh
 # Pyenv settings
 PYENV_ROOT="$HOME/.pyenv"
 PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 # Emacs aliases
 alias fastmacs="emacs --daemon"
 alias cs="emacsclient -t"
 
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
+    eval "$(pyenv init -)"
 fi
+
+fpath=($fpath "/home/vslavov/.zfunctions")
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fpath=($fpath "/home/vslavov/.zfunctions")
+fpath=($fpath "/home/v-slavov/.zfunctions")
+fpath=($fpath "/home/v-slavov/.zfunctions")
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
 prompt spaceship
-fpath=($fpath "/home/vslavov/.zfunctions")
+
+PATH=~/.local/bin/:$PATH
+alias gbpurge='git branch --merged | grep -v "\*" | grep -v "master" | grep -v "develop" | grep -v "staging" | xargs -n 1 git branch -d'
+alias pyclean=find . | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
+
+# Cargo
+export PATH="$HOME/.cargo/bin:$PATH"
