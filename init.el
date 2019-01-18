@@ -11,9 +11,10 @@
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 
 ;;neotree config
-
+(add-to-list 'load-path "/home/v-slavov/.emacs.d/neotree")
+(require 'neotree)
 (global-set-key [f8] 'neotree-toggle)
-(setq neo-theme 'icons)
+(setq neo-theme (if (display-graphic-p) 'icons 'arrow))
 
 ;; disable lockfiles
 (setq create-lockfiles nil)
@@ -64,6 +65,8 @@
 (add-hook 'rjsx-mode-hook 'my-tern-js2-hook)
 (add-hook 'rjsx-mode-hook 'prettier-js-mode)
 (add-hook 'rjsx-mode-hook (lambda () (setq js2-basic-offset 2)))
+(add-hook 'css-mode-hook 'prettier-js-mode)
+(add-hook 'scss-mode-hook 'prettier-js-mode)
 
 ;;Initialize theme
 (require 'color-theme-sanityinc-tomorrow)
@@ -176,24 +179,3 @@
 (add-hook 'rust-mode-hook 'racer-mode)
 (add-hook 'rust-mode-hook 'cargo-minor-mode)
 (add-hook 'rust-mode-hook 'company-mode)
-
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-idle-delay 0.1)
- '(company-tooltip-idle-delay 0.1)
- '(elpy-test-runner (quote elpy-test-pytest-runner))
- '(package-selected-packages
-   (quote
-    (cargo company racer flymake-rust rust-mode neotree rjsx-mode helm-ag auto-complete js2-mode web-mode prettier-js helm-projectile git-gutter elpy color-theme-sanityinc-tomorrow))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
